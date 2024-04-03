@@ -1,0 +1,32 @@
+<script type="text/javascript">
+RED.nodes.registerType('listen-ewc', {
+    category: 'EnergyWebX',
+    color: '#B28CFF',
+    inputs: 1,
+    outputs: 1,
+    icon: "ewc-events.svg",
+    label: function() {
+        return this.name || "listen to SmartContact event";
+    },
+    inputLabels: ["result"],
+    outputLabels: ["confirmation"],
+    align: 'left',
+    defaults: {
+        name: {value: "listen to SmartContact event" },
+        networkConfig: { type: 'energywebx-config' }
+    }
+});
+</script>
+<script type="text/x-red" data-template-name="listen-ewc">    
+    <div class="form-row">
+        <label for="node-input-networkConfig"><i class="icon-tag"></i> Network Config</label>
+        <input type="text" id="node-input-networkConfig">
+    </div>
+    <div class="form-row">
+        <label for="node-input-result"><i class="icon-tag"></i> Result</label>
+        <input type="text" id="node-input-result" placeholder="Result">
+    </div>
+</script>
+<script type="text/x-red" data-help-name="listen-ewc">
+    <p>Listen to SmartContract events on Energy Web Chain</p>
+</script>

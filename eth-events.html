@@ -1,0 +1,32 @@
+<script type="text/javascript">
+RED.nodes.registerType('listen-eth', {
+    category: 'EnergyWebX',
+    color: '#B8FBF4',
+    inputs: 1,
+    outputs: 1,
+    icon: "eth-events.svg",
+    label: function() {
+        return this.name || "listen to SmartContact event";
+    },
+    inputLabels: ["result"],
+    outputLabels: ["confirmation"],
+    align: 'left',
+    defaults: {
+        name: {value: "listen to SmartContact event" },
+        networkConfig: { type: 'energywebx-config' }
+    }
+});
+</script>
+<script type="text/x-red" data-template-name="listen-eth">    
+    <div class="form-row">
+        <label for="node-input-networkConfig"><i class="icon-tag"></i> Network Config</label>
+        <input type="text" id="node-input-networkConfig">
+    </div>
+    <div class="form-row">
+        <label for="node-input-result"><i class="icon-tag"></i> Result</label>
+        <input type="text" id="node-input-result" placeholder="Result">
+    </div>
+</script>
+<script type="text/x-red" data-help-name="listen-eth">
+    <p>Listen to SmartContract events on Ethereum</p>
+</script>

@@ -1,0 +1,32 @@
+<script type="text/javascript">
+RED.nodes.registerType('call-ewc', {
+    category: 'EnergyWebX',
+    color: '#B28CFF',
+    inputs: 1,
+    outputs: 1,
+    icon: "ewc-interaction.svg",
+    label: function() {
+        return this.name || "call EWC contract";
+    },
+    inputLabels: ["result"],
+    outputLabels: ["confirmation"],
+    align: 'left',
+    defaults: {
+        name: {value: "call EWC contract" },
+        networkConfig: { type: 'energywebx-config' }
+    }
+});
+</script>
+<script type="text/x-red" data-template-name="call-ewc">    
+    <div class="form-row">
+        <label for="node-input-networkConfig"><i class="icon-tag"></i> Network Config</label>
+        <input type="text" id="node-input-networkConfig">
+    </div>
+    <div class="form-row">
+        <label for="node-input-result"><i class="icon-tag"></i> Result</label>
+        <input type="text" id="node-input-result" placeholder="Result">
+    </div>
+</script>
+<script type="text/x-red" data-help-name="call-ewc">
+    <p>Make a call to SmartContract on Energy Web Chain</p>
+</script>

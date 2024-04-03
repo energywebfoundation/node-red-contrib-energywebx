@@ -1,0 +1,37 @@
+{
+  "name": "red-contrib-energywebx",
+  "version": "1.0.0",
+  "description": "Turn your flows to become SmartFlows in-order to be able to have your node-red flows being instaled and executed on tousands of decentralised worker nodes around the world (Powered by EnergyWebX)",
+  "main": "index.js",
+  "node-red" : {
+    "nodes": {
+        "energywebx-config": "energywebx-config.js",
+        "submit-solution": "submit-solution.js",
+        "upsert-storage": "upsert-storage.js",
+        "query-storage": "query-storage.js",
+        "submit-extrinsic": "submit-extrinsic.js",
+        "solution-events": "solution-events.js",
+        "send-xcm": "send-xcm.js",
+        "xcm-events": "xcm-events.js",
+        "eth-interaction": "eth-interaction.js",
+        "eth-events": "eth-events.js",
+        "ewc-interaction": "ewc-interaction.js",
+        "ewc-events": "ewc-events.js" 
+    }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "SmartFlow",
+    "Energy",
+    "Web",
+    "Worker",
+    "Nodes",
+    "Decentralised",
+    "Blockchain",
+    "EWT"
+  ],
+  "author": "EnergyWebX",
+  "license": "ISC"
+}
