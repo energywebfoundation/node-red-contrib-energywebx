@@ -5,10 +5,10 @@ Screenshot:
 ![alt text](assets/screenshot.png)
 
 ## Nodes
-**Submit Results**
+**Submit Results (WIP)**
 - Sends the computation result to EWX with configured solution namespace and network(REX, EWX)
 
-**Consensus Event**
+**Consensus Event (WIP)**
 - Listens to consensus event raised from particular solution on EWX (upon majority of worker nodes publish their result), this includes consensus proof hash and corrsponding block hash
 
 **Upsert State (WIP)**
