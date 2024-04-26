@@ -7,6 +7,11 @@ module.exports = function(RED) {
 
         node.on('input', function (msg, send, done) {
             console.log(config);
+            console.log(msg);
+
+            if (!msg.payload.result || !msg.payload.votingRoundID) node.error("Message payload is invalid");
+            else if (msg.payload.result.length > 64 || typeof msg.payload.result !== 'string') node.error("Invalid result");
+            else if (msg.payload.votingRoundID.length > 32 || typeof msg.payload.votingRoundID !== 'string') node.error("Invalid votingRoundID");
 
             const requestPayload = {
                 noderedId: config.z,
