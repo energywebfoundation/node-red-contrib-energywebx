@@ -1,43 +1,58 @@
 module.exports = function(RED) {
-
-    if (false) { // Test for nodes compatibilities
-        throw "Info : not compatible";
-    }
+    const rp = require('request-promise');
 
     function NodeConstructor(config) {
         RED.nodes.createNode(this, config);
-        this.energywebxconfig = RED.nodes.getNode(config.energywebxconfig);
+        var node = this;
 
-        var node = this;        
+        node.on('input', function (msg, send, done) {
+            console.log(config);
 
-        node.on('input', function(msg) {
-            // var address = msg.payload;
+            const requestPayload = {
+                noderedId: config.z,
+                root: msg.payload.result,
+                id: msg.payload.votingRoundID,
+            };
 
-            if (node.energywebxconfig) {
-            //     node.status({ fill: "green", shape: "ring", text: "sending web3 request to " + node.chainconfig.chainName + " ..."});
-                
-            //     const web3 = new Web3(node.chainconfig.rpcUrl);
-            //     web3.eth.getBalance(address).then( (balance) => {                    
-            //         msg.payload = web3.utils.fromWei(balance, 'ether');
-                            
-            //         node.send(msg);
-            //         node.status({ fill: "green", shape: "dot", text: "done" });                    
-            //     })
-            //     .catch( (error)=> {
-            //         node.status({ fill: "red", shape: "dot", text: "error encountered" });
-            //         node.error(error);
-            //     });
-                        
-            } else {
-                // not configured
-                // node.status({ fill: "red", shape: "dot", text: "missing config" });
-            }
+            console.log(requestPayload);
+
+            const opts = {
+                method: 'POST',
+                url: 'http://localhost:3002/sse/1',
+                headers: {
+                    'User-Agent': 'ewx-marketplace'
+                },
+                json: true,
+                body: requestPayload,
+            };
+
+            rp(opts).then((result) => {
+                console.log("result submitted:", result);
+                send({
+                    payload: {
+                        ... requestPayload,
+                        success: true,
+                    }
+                });
+
+                done();
+            }).catch((err) => {
+                console.error("error while submitting result:", err);
+                send({
+                    payload: {
+                        ... requestPayload,
+                        success: false,
+                    }
+                });
+
+                done();
+            });
         });
 
         node.on("close", function() {
-            // node.status({ fill: "gray", shape: "dot", text: "closing" });
+            node.status({ fill: "gray", shape: "dot", text: "closing" });
         });
     };
 
-    RED.nodes.registerType("send-result", NodeConstructor);
+    RED.nodes.registerType("submit-result", NodeConstructor);
 }
