@@ -34,3 +34,11 @@ Screenshot:
 
 **EWC Events (WIP)**
 - Listens to a particular event raised from a target SmartContract on Energy Web Chain
+
+## Local development
+
+```shell
+$ yarn dev
+$ cd ~/.node-red
+$ npm install <absolute-path-repository>
+```

@@ -1,0 +1,49 @@
+<script type="text/javascript">
+    RED.nodes.registerType('submit-result', {
+        category: 'common',
+        color: '#60A0FF',
+        inputs: 2,
+        outputs: 1,
+        icon: "submit-result.png",
+        label: function () {
+            return this.name || "submit result";
+        },
+        inputLabels: ["votingRoundID", "result"],
+        outputLabels: ["confirmation"],
+        align: 'left',
+        defaults: {
+            name: {value: "submit result"},
+            votingRoundID: {
+                value: "",
+                validate: function (v, opt) {
+                    if (v.trim().length <= 32) {
+                        return true;
+                    }
+                    return RED._("node-red:submit-result.errors.votingRoundID");
+                }
+            },
+            result: {
+                value: "",
+                validate: function (v, opt) {
+                    if (v.trim().length <= 64) {
+                        return true;
+                    }
+                    return RED._("node-red:submit-result.errors.result");
+                }
+            }
+        }
+    });
+</script>
+<script type="text/html" data-template-name="submit-result">
+    <div className="form-row">
+        <label htmlFor="node-input-votingRoundID"><i className="icon-tag"></i>Voting ID</label>
+        <input type="text" id="node-input-votingRoundID" placeholder="Voting Round ID">
+    </div>
+    <div className="form-row">
+        <label htmlFor="node-input-result"><i className="icon-tag"></i>Result</label>
+        <input type="text" id="node-input-result" placeholder="Result">
+    </div>
+</script>
+<script type="text/html" data-help-name="submit-result">
+    <p>Submit result vote for a solution on EWX</p>
+</script>

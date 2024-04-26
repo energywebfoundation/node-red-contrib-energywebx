@@ -1,26 +1,24 @@
 {
   "name": "red-contrib-energywebx",
   "version": "1.0.0",
-  "description": "Turn your flows to become SmartFlows in-order to be able to have your node-red flows being instaled and executed on tousands of decentralised worker nodes around the world (Powered by EnergyWebX)",
-  "main": "index.js",
-  "node-red" : {
+  "description": "Turn your flows to become SmartFlows in-order to be able to have your node-red flows being installed and executed on thousands of decentralised worker nodes around the world (Powered by Energy Web X)",
+  "node-red": {
     "nodes": {
-        "energywebx-config": "energywebx-config.js",
-        "submit-solution": "submit-solution.js",
-        "upsert-storage": "upsert-storage.js",
-        "query-storage": "query-storage.js",
-        "submit-extrinsic": "submit-extrinsic.js",
-        "solution-events": "solution-events.js",
-        "send-xcm": "send-xcm.js",
-        "xcm-events": "xcm-events.js",
-        "eth-interaction": "eth-interaction.js",
-        "eth-events": "eth-events.js",
-        "ewc-interaction": "ewc-interaction.js",
-        "ewc-events": "ewc-events.js" 
+      "consensus": "dist/nodes/consensus/consensus.js"
     }
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "copy": "copyfiles -u 2 \"./src/nodes/**/*.{png,svg}\" \"./dist/nodes/\"",
+    "build:editor": "rollup -c rollup.config.editor.mjs",
+    "build:editor:watch": "rollup -c rollup.config.editor.mjs -w",
+    "build:runtime": "tsc -p tsconfig.runtime.json",
+    "build:runtime:watch": "tsc -p tsconfig.runtime.watch.json --watch --preserveWatchOutput",
+    "build": "rm -rf dist && yarn copy && yarn build:editor && yarn build:runtime",
+    "test": "jest --forceExit --detectOpenHandles --colors",
+    "test:watch": "jest --forceExit --detectOpenHandles --watchAll",
+    "dev": "rm -rf dist && yarn copy && concurrently --kill-others --names 'COPY,EDITOR,RUNTIME,TEST' --prefix '({name})' --prefix-colors 'yellow.bold,cyan.bold,greenBright.bold,magenta.bold' 'onchange -v \"src/**/*.png\" \"src/**/*.svg\" -- yarn copy' 'yarn build:editor:watch' 'yarn build:runtime:watch' 'sleep 10; yarn test:watch'",
+    "lint": "prettier --ignore-path .eslintignore --check '**/*.{js,ts,md}'; eslint --ext .js,.ts .",
+    "lint:fix": "prettier --ignore-path .eslintignore --write '**/*.{js,ts,md}'; eslint --ext .js,.ts . --fix"
   },
   "keywords": [
     "SmartFlow",
@@ -29,9 +27,25 @@
     "Worker",
     "Nodes",
     "Decentralised",
+    "Decentralized",
+    "Energy Web X",
     "Blockchain",
     "EWT"
   ],
   "author": "EnergyWebX",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@polkadot/api": "^11.0.2",
+    "node-red": "^3.1.9",
+    "request-promise": "^4.2.6"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/node-red": "^1.3.5",
+    "concurrently": "^8.2.2",
+    "copyfiles": "^2.4.1",
+    "onchange": "^7.1.0",
+    "rollup": "^4.16.4",
+    "typescript": "^5.4.5"
+  }
 }
