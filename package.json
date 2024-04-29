@@ -4,6 +4,7 @@
   "description": "Turn your flows to become SmartFlows in-order to be able to have your node-red flows being instaled and executed on tousands of decentralised worker nodes around the world (Powered by EnergyWebX)",
   "main": "index.js",
   "node-red" : {
+    "version": ">=3.0.0",
     "nodes": {
         "energywebx-config": "energywebx-config.js",
         "submit-solution": "submit-solution.js",
