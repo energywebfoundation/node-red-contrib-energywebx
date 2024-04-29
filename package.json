@@ -1,6 +1,6 @@
 {
-  "name": "red-contrib-energywebx",
-  "version": "1.0.0",
+  "name": "@energyweb/node-red-contrib-energywebx",
+  "version": "0.0.1-beta",
   "description": "Turn your flows to become SmartFlows in-order to be able to have your node-red flows being instaled and executed on tousands of decentralised worker nodes around the world (Powered by EnergyWebX)",
   "main": "index.js",
   "node-red" : {
