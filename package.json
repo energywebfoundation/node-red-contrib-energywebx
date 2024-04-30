@@ -6,18 +6,18 @@
   "node-red" : {
     "version": ">=3.0.0",
     "nodes": {
-        "energywebx-config": "energywebx-config.js",
-        "submit-solution": "submit-solution.js",
-        "upsert-storage": "upsert-storage.js",
-        "query-storage": "query-storage.js",
-        "submit-extrinsic": "submit-extrinsic.js",
-        "solution-events": "solution-events.js",
-        "send-xcm": "send-xcm.js",
-        "xcm-events": "xcm-events.js",
-        "eth-interaction": "eth-interaction.js",
-        "eth-events": "eth-events.js",
-        "ewc-interaction": "ewc-interaction.js",
-        "ewc-events": "ewc-events.js" 
+      "energywebx-config": "energywebx-config.js",
+      "submit-solution": "submit-solution.js",
+      "upsert-storage": "upsert-storage.js",
+      "query-storage": "query-storage.js",
+      "submit-extrinsic": "submit-extrinsic.js",
+      "solution-events": "solution-events.js",
+      "send-xcm": "send-xcm.js",
+      "xcm-events": "xcm-events.js",
+      "eth-interaction": "eth-interaction.js",
+      "eth-events": "eth-events.js",
+      "ewc-interaction": "ewc-interaction.js",
+      "ewc-events": "ewc-events.js"
     }
   },
   "scripts": {
@@ -34,5 +34,8 @@
     "EWT"
   ],
   "author": "EnergyWebX",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "request-promise": "^4.2.6"
+  }
 }
