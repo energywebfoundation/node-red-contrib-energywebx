@@ -36,6 +36,13 @@
   ],
   "author": "EnergyWebX",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/energywebfoundation/node-red-contrib-energywebx"
+  },
+  "bugs": {
+    "url": "https://github.com/energywebfoundation/node-red-contrib-energywebx/issues"
+  },
   "dependencies": {
     "request-promise": "^4.2.6"
   }
