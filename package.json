@@ -31,7 +31,8 @@
     "Nodes",
     "Decentralised",
     "Blockchain",
-    "EWT"
+    "EWT",
+    "node-red"
   ],
   "author": "EnergyWebX",
   "license": "ISC",
