@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - prepare_release
 
 env:
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -35,12 +34,11 @@ jobs:
         uses: mathieudutour/github-tag-action@v6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          dry-run: ${{ github.ref == 'refs/heads/prepare_release' }}
           custom_release_rules: major:major:Major Changes,minor:minor:Minor Changes,chore:patch:Chores
     outputs:
       new_version: ${{ steps.tag_version.outputs.new_version }}
 
-  build:
+  publish:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: [cancel-previous, semantic-version]
@@ -66,4 +64,4 @@ jobs:
       - name: Publish to NPM
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}  # Set your NPM token in repository secrets
-        run: npm publish --dry-run --access public  # Add any additional flags you need
+        run: npm publish --access public  # Add any additional flags you need
