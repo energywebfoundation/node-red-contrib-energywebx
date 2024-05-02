@@ -2,7 +2,7 @@
 Have your node-red flows to become SmartFlows by being installed, executed and reach consensus across thousands of decentralised worker nodes around the world.
 
 Screenshot:
-![alt text](assets/screenshot.png)
+![alt text](https://github.com/energywebfoundation/node-red-contrib-energywebx/blob/master/assets/screenshot.png)
 
 ## Nodes
 **Submit Results (WIP)**
