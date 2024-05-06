@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - change_release_flow
   workflow_dispatch:
     inputs:
       action:
