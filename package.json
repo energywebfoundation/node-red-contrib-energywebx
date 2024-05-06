@@ -4,6 +4,7 @@
   "description": "Turn your flows to become SmartFlows in-order to be able to have your node-red flows being installed and executed on thousands of decentralised worker nodes around the world (Powered by Energy Web X)",
   "node-red": {
     "nodes": {
+      "submit-solution": "submit-solution.js",
       "consensus": "dist/nodes/consensus/consensus.js"
     }
   },

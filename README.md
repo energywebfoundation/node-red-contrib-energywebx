@@ -2,14 +2,14 @@
 Have your node-red flows to become SmartFlows by being installed, executed and reach consensus across thousands of decentralised worker nodes around the world.
 
 Screenshot:
-![alt text](assets/screenshot.png)
+![flows screenshot](https://github.com/energywebfoundation/node-red-contrib-energywebx/raw/master/assets/screenshot.png)
 
 ## Nodes
 **Submit Results (WIP)**
-- Sends the computation result to EWX with configured solution namespace and network(REX, EWX)
+- Sends the computation result to EWX Marketplace App with configured solution namespace and network(REX, EWX)
 
-**Consensus Event (WIP)**
-- Listens to consensus event raised from particular solution on EWX (upon majority of worker nodes publish their result), this includes consensus proof hash and corrsponding block hash
+**Consensus Event**
+- Listens to consensus event raised from particular solution on EWX (upon majority of worker nodes publish their result), this includes consensus proof hash and corresponding block hash
 
 **Upsert State (WIP)**
 - Worker node casts a vote(request) to update state of a partucular object attached to a solution on EWX
