@@ -1,6 +1,6 @@
 {
-  "name": "red-contrib-energywebx",
-  "version": "1.0.0",
+  "name": "@energyweb/node-red-contrib-energywebx",
+  "version": "0.0.1-beta",
   "description": "Turn your flows to become SmartFlows in-order to be able to have your node-red flows being instaled and executed on tousands of decentralised worker nodes around the world (Powered by EnergyWebX)",
   "main": "index.js",
   "node-red" : {
@@ -31,10 +31,18 @@
     "Nodes",
     "Decentralised",
     "Blockchain",
-    "EWT"
+    "EWT",
+    "node-red"
   ],
   "author": "EnergyWebX",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/energywebfoundation/node-red-contrib-energywebx"
+  },
+  "bugs": {
+    "url": "https://github.com/energywebfoundation/node-red-contrib-energywebx/issues"
+  },
   "dependencies": {
     "request-promise": "^4.2.6"
   }
