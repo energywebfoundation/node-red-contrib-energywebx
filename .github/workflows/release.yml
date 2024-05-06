@@ -4,6 +4,16 @@ on:
   push:
     branches:
       - master
+      - change_release_flow
+  workflow_dispatch:
+    inputs:
+      action:
+        type: choice
+        description: Select action to excute
+        options:
+        - Rlease
+        - Dry-run
+        default: Dry-run
 
 env:
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -35,6 +45,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           custom_release_rules: major:major:Major Changes,minor:minor:Minor Changes,chore:patch:Chores
+          dry-run: ${{ github.event.inputs.action != 'Rlease' }}
     outputs:
       new_version: ${{ steps.tag_version.outputs.new_version }}
 
@@ -64,4 +75,9 @@ jobs:
       - name: Publish to NPM
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}  # Set your NPM token in repository secrets
-        run: npm publish --access public  # Add any additional flags you need
+        run: |
+          if [[ "${{ github.event.inputs.action }}" == 'Release' ]]; then
+            npm publish --access public 
+          else
+            npm publish --access public --dry-run
+          fi
