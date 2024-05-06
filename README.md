@@ -5,13 +5,16 @@ Screenshot:
 ![flows screenshot](https://github.com/energywebfoundation/node-red-contrib-energywebx/raw/master/assets/screenshot.png)
 
 ## Nodes
-**Submit Results (WIP)**
-- Sends the computation result to EWX Marketplace App with configured solution namespace and network(REX, EWX)
+**Submit Results**
+- Sends the computation result to EWX Marketplace App with configured solution namespace and network (REX, EWX)
+![img.png](assets/submit-solution-screenshot.png)
 
 **Consensus Event**
-- Listens to consensus event raised from particular solution on EWX (upon majority of worker nodes publish their result), this includes consensus proof hash and corresponding block hash
+- Verifies submitted solution results to check for consensus (majority of votes on the same solution result hash, 50% + 1 required to reach consensus), output consensus result (REACHED, NOT_ENOUGH_VOTES, UNABLE_TO_REACH_CONSENSUS, FAILED) and leader address (if any action needs to be taken after reaching consensus by single entity, algorithm will select leader)
 
-**Upsert State (WIP)**
+![img.png](assets/consensus-event-screenshot.png)
+
+- **Upsert State (WIP)**
 - Worker node casts a vote(request) to update state of a partucular object attached to a solution on EWX
 
 **Query State (WIP)**

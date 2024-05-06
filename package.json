@@ -1,14 +1,20 @@
 {
   "name": "red-contrib-energywebx",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=18.19",
+    "npm": "please-use-yarn"
+  },
+  "engineStrict": true,
   "description": "Turn your flows to become SmartFlows in-order to be able to have your node-red flows being installed and executed on thousands of decentralised worker nodes around the world (Powered by Energy Web X)",
   "node-red": {
     "nodes": {
-      "submit-solution": "submit-solution.js",
+      "submit-solution": "./submit-solution.js",
       "consensus": "dist/nodes/consensus/consensus.js"
     }
   },
   "scripts": {
+    "preinstall": "node tools/preinstall-script.js",
     "copy": "copyfiles -u 2 \"./src/nodes/**/*.{png,svg}\" \"./dist/nodes/\"",
     "build:editor": "rollup -c rollup.config.editor.mjs",
     "build:editor:watch": "rollup -c rollup.config.editor.mjs -w",
@@ -38,6 +44,7 @@
   "dependencies": {
     "@polkadot/api": "^11.0.2",
     "node-red": "^3.1.9",
+    "request": "^2.88.2",
     "request-promise": "^4.2.6"
   },
   "devDependencies": {
