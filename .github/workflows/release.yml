@@ -45,7 +45,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           custom_release_rules: major:major:Major Changes,minor:minor:Minor Changes,chore:patch:Chores
-          dry-run: ${{ github.event.inputs.action != 'Rlease' }}
+          dry_run: ${{ github.event.inputs.action != 'Rlease' }}
     outputs:
       new_version: ${{ steps.tag_version.outputs.new_version }}
 
