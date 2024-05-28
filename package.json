@@ -14,7 +14,6 @@
     }
   },
   "scripts": {
-    "preinstall": "node tools/preinstall-script.js",
     "copy": "copyfiles -u 2 \"./src/nodes/**/*.{png,svg}\" \"./dist/nodes/\"",
     "build:editor": "rollup -c rollup.config.editor.mjs",
     "build:editor:watch": "rollup -c rollup.config.editor.mjs -w",
