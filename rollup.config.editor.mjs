@@ -6,7 +6,13 @@ import { createRequire } from 'node:module'
 
 const loadJSON = (path) => JSON.parse(fs.readFileSync(new URL(path, import.meta.url)));
 const packageJson = loadJSON("./package.json");
-const allNodeTypes = Object.keys(packageJson["node-red"].nodes);
+const allNodeRedPackageTypes = Object.keys(packageJson["node-red"].nodes);
+
+const excludedNodes = [
+    "submit-solution"
+];
+
+const allNodeTypes = allNodeRedPackageTypes.filter(x => !excludedNodes.includes(x));
 
 const htmlWatch = () => {
     return {
