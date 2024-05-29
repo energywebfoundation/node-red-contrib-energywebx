@@ -1,0 +1,33 @@
+name: NPM Publish
+
+on:
+  pull_request:
+
+jobs:
+  cancel-previous:
+    name: 'Cancel Previous Runs'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: styfle/cancel-workflow-action@0.12.0
+        with:
+          access_token: ${{ github.token }}
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [cancel-previous]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.19
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run build
+        run: npm run dev
