@@ -1,5 +1,5 @@
 {
-  "name": "red-contrib-energywebx",
+  "name": "@energyweb/node-red-contrib-energywebx",
   "version": "1.0.0",
   "engines": {
     "node": ">=18.19"
