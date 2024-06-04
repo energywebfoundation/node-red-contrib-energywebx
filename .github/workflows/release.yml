@@ -76,7 +76,8 @@ jobs:
 
       - name: Publish to NPM
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}  # Set your NPM token in repository secrets
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}  # used to work for npm publish, but stopped working
+          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
         run: |
           if [[ "${{ github.event.inputs.action }}" == 'Release' ]]; then
             npm publish --access public 
