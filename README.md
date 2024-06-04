@@ -2,16 +2,19 @@
 Have your node-red flows to become SmartFlows by being installed, executed and reach consensus across thousands of decentralised worker nodes around the world.
 
 Screenshot:
-![alt text](assets/screenshot.png)
+![flows screenshot](https://github.com/energywebfoundation/node-red-contrib-energywebx/raw/master/assets/screenshot.png)
 
 ## Nodes
-**Submit Results (WIP)**
-- Sends the computation result to EWX with configured solution namespace and network(REX, EWX)
+**Submit Results**
+- Sends the computation result to EWX Marketplace App with configured solution namespace and network (REX, EWX)
+![img.png](assets/submit-solution-screenshot.png)
 
-**Consensus Event (WIP)**
-- Listens to consensus event raised from particular solution on EWX (upon majority of worker nodes publish their result), this includes consensus proof hash and corrsponding block hash
+**Consensus Event**
+- Verifies submitted solution results to check for consensus (majority of votes on the same solution result hash, 50% + 1 required to reach consensus), output consensus result (REACHED, NOT_ENOUGH_VOTES, UNABLE_TO_REACH_CONSENSUS, FAILED) and leader address (if any action needs to be taken after reaching consensus by single entity, algorithm will select leader)
 
-**Upsert State (WIP)**
+![img.png](assets/consensus-event-screenshot.png)
+
+- **Upsert State (WIP)**
 - Worker node casts a vote(request) to update state of a partucular object attached to a solution on EWX
 
 **Query State (WIP)**
@@ -34,3 +37,11 @@ Screenshot:
 
 **EWC Events (WIP)**
 - Listens to a particular event raised from a target SmartContract on Energy Web Chain
+
+## Local development
+
+```shell
+$ yarn dev
+$ cd ~/.node-red
+$ npm install <absolute-path-repository>
+```

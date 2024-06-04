@@ -1,19 +1,17 @@
+"use strict";
 module.exports = function(RED) {
     const rp = require('request-promise');
 
-    function NodeConstructor(config) {
-        RED.nodes.createNode(this, config);
+    function SubmitResult(n) {
+        RED.nodes.createNode(this, n);
         var node = this;
 
         node.on('input', function (msg, send, done) {
-
-            if (!msg.payload.result || !msg.payload.votingRoundID) node.error("Message payload is invalid");
-            else if (msg.payload.result.length > 64 || typeof msg.payload.result !== 'string') node.error("Invalid result");
-            else if (msg.payload.votingRoundID.length > 32 || typeof msg.payload.votingRoundID !== 'string') node.error("Invalid votingRoundID");
+            console.log(n);
 
             const requestPayload = {
-                noderedId: config.z,
-                root: msg.payload.result,
+                noderedId: n.z,
+                root: msg.payload.root,
                 id: msg.payload.votingRoundID,
             };
 
@@ -57,5 +55,6 @@ module.exports = function(RED) {
         });
     };
 
-    RED.nodes.registerType("submit-result", NodeConstructor);
+    RED.nodes.registerType("submit-result", SubmitResult);
 }
+//# sourceMappingURL=energywebx-config.js.map
