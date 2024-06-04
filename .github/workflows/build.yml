@@ -3,6 +3,9 @@ name: Build
 on:
   pull_request:
 
+env:
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
 jobs:
   cancel-previous:
     name: 'Cancel Previous Runs'
@@ -16,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: [cancel-previous]
+    env:
+      NPM_TOKEN: ${{secrets.NPM_TOKEN}}
 
     steps:
       - name: Checkout repository
