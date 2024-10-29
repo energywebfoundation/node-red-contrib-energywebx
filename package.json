@@ -46,7 +46,7 @@
     "request-promise": "^4.2.6"
   },
   "peerDependencies": {
-    "@polkadot/api": "^11.0.2"
+    "@polkadot/api": "^14.2.1"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^11.1.6",
