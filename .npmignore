@@ -6,3 +6,12 @@
 !yarn.lock
 !submit-solution.js
 !submit-solution.html
+!energywebx-config.js
+!energywebx-config.html
+!is-nominated.html
+!is-nominated.js
+!consensus.html
+!consensus.js
+!icons/consensus.svg
+!icons/nomination.svg
+!icons/submit-result.svg

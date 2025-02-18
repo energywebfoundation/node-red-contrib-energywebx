@@ -1,0 +1,23 @@
+<script type="text/javascript">
+    RED.nodes.registerType('is-nominated', {
+        category: 'Energy Web X',
+        paletteLabel: 'Is Worker nominated',
+        color: '#60A0FF',
+        inputs: 1,
+        outputs: 1,
+        icon: "icons/nomination.png",
+        label: function() {
+            return this.name || "is nominated";
+        },
+        inputLabels: [],
+        outputLabels: [],
+        align: 'left',
+        defaults: {
+            ewxConfig: { value:"", type: "energywebx-config", required: true },
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="is-nominated">
+    <p>Checks if worker is nominated.</p>
+</script>

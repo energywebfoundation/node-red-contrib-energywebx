@@ -1,16 +1,21 @@
 <script type="text/javascript">
     RED.nodes.registerType('energywebx-config', {
         category: 'config',
-        icon: "energywebx-logo.png",
-        label: function() {
-            return this.energywebxconfig;
+        color: '#60A0FF',
+        paletteLabel: 'Energy Web X Config',
+        label: function () {
+            return `${this.networkName.toUpperCase()} Config`;
         },
         defaults: {
-            networkName: { value: "ewx", required: true },
-            solutionNamespace: { value: "oep", required: true },
-            rpcUrl: { value: {} },
-            socketUrl: { value: {} },
-            explorerUrl: { value: {} }
+            solutionNamespace: {value: "", default: "", required: true},
+            solutionGroupId: {value: "", default: "", required: true},
+            rpcUrl: {value: null, required: true},
+            subsquidUrl: {value: null, required: true},
+            workerUrl: {value: "", default: 'http://localhost:3002', required: true},
+            workerAddress: {value: "", default: ""}
         }
     });
+</script>
+
+<script type="text/html" data-template-name="energywebx-config">
 </script>

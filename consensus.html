@@ -1,0 +1,23 @@
+<script type="text/javascript">
+    RED.nodes.registerType('consensus', {
+        category: 'Energy Web X',
+        paletteLabel: 'Offline Consensus',
+        color: '#60A0FF',
+        inputs: 1,
+        outputs: 1,
+        icon: "icons/consensus.svg",
+        label: function() {
+            return this.name || "Offline Consensus";
+        },
+        inputLabels: [],
+        outputLabels: [],
+        align: 'left',
+        defaults: {
+            ewxConfig: { value:"", type: "energywebx-config", required: true },
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="consensus">
+    <p>Checks if consensus was reached for given voting round.</p>
+</script>
