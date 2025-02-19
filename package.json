@@ -9,22 +9,12 @@
   "node-red": {
     "nodes": {
       "submit-solution": "./submit-solution.js",
-      "consensus": "dist/nodes/consensus/consensus.js"
+      "energywebx-config": "./energywebx-config.js",
+      "is-nominated": "./is-nominated.js",
+      "consensus": "./consensus.js"
     }
   },
-  "scripts": {
-    "copy": "copyfiles -u 2 \"./src/nodes/**/*.{png,svg}\" \"./dist/nodes/\"",
-    "build:editor": "rollup -c rollup.config.editor.mjs",
-    "build:editor:watch": "rollup -c rollup.config.editor.mjs -w",
-    "build:runtime": "tsc -p tsconfig.runtime.json",
-    "build:runtime:watch": "tsc -p tsconfig.runtime.watch.json --watch --preserveWatchOutput",
-    "build": "rm -rf dist && yarn copy && npm run build:editor && npm run build:runtime",
-    "test": "jest --forceExit --detectOpenHandles --colors",
-    "test:watch": "jest --forceExit --detectOpenHandles --watchAll",
-    "dev": "rm -rf dist && yarn copy && concurrently --kill-others --names 'COPY,EDITOR,RUNTIME,TEST' --prefix '({name})' --prefix-colors 'yellow.bold,cyan.bold,greenBright.bold,magenta.bold' 'onchange -v \"src/**/*.png\" \"src/**/*.svg\" -- yarn copy' 'yarn build:editor:watch' 'yarn build:runtime:watch' 'sleep 10; yarn test:watch'",
-    "lint": "prettier --ignore-path .eslintignore --check '**/*.{js,ts,md}'; eslint --ext .js,.ts .",
-    "lint:fix": "prettier --ignore-path .eslintignore --write '**/*.{js,ts,md}'; eslint --ext .js,.ts . --fix"
-  },
+  "scripts": {},
   "keywords": [
     "SmartFlow",
     "Energy",
