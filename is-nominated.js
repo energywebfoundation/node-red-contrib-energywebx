@@ -10,22 +10,26 @@ module.exports = function (RED) {
 
         node.on('input', function (msg, send, done) {
             const requestPayload = {
-                query: `query IsWorkerNominated($workerAddress: String!, $solutionNamespace: String!) {
-                      nominatedWorkersMappings(where:{ worker: {id_eq: $workerAddress}, solution:{ id_eq: $solutionNamespace}}) {
+                query: `
+                query IsWorkerNominated($workerAddress: String!, $solutionNamespace: String!) {
+                    nominatedWorkerNodes(where:{ worker: {id_eq: $workerAddress}, solution:{ id_eq: $solutionNamespace}}) {
                         id
-                      }
-                    }`,
+                    }
+                }
+`                   ,
                 variables: {
                     workerAddress: node.ewxConfig.workerAddress,
                     solutionNamespace: node.ewxConfig.solutionNamespace
                 }
             };
 
-            axios.post(node.ewxConfig.subsquidUrl, requestPayload)
-                .then((response) => {
-                    const {nominatedWorkersMappings} = response.data.data;
+            const url = node.ewxConfig.baseUrls.base_indexer_url + '/votes/graphql';
 
-                    if (nominatedWorkersMappings.length > 0) {
+            axios.post(url, requestPayload)
+                .then((response) => {
+                    const {nominatedWorkerNodes} = response.data.data;
+
+                    if (nominatedWorkerNodes.length > 0) {
                         this.status({fill: "green", shape: "dot", text: "nominated"});
                         this.log(`workerAddress = ${node.ewxConfig.workerAddress} - worker is nominated`);
 
