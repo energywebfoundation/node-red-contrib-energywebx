@@ -9,17 +9,36 @@ module.exports = function (RED) {
         var node = this;
 
         node.on('input', function (msg, send, done) {
+           if(!msg.payload.votingRoundId) {
+               console.error(`no voting round specified for solution = ${node.ewxConfig.solutionNamespace}`);
+
+               this.status({fill: "red", shape: "ring", text: "no voting round specified"});
+
+               send({
+                   payload: {
+                       isNominated: null,
+                   }
+               });
+
+               return;
+           }
+
             const requestPayload = {
                 query: `
-                query IsWorkerNominated($workerAddress: String!, $solutionNamespace: String!) {
-                    nominatedWorkerNodes(where:{ worker: {id_eq: $workerAddress}, solution:{ id_eq: $solutionNamespace}}) {
+                    query IsWorkerNominated($workerAddress: String!, $solutionNamespace: String!, $votingRoundId: String!) {
+                      votingRoundNominatedWorkersSnapshots(where: {worker: {id_eq: $workerAddress}, votingRound:{votingRoundId_eq: $votingRoundId, solution: {id_eq: $solutionNamespace}}}) {
                         id
+                        votingRound {
+                          id
+                        }
+                      }
                     }
-                }
-`                   ,
+                    
+                    `,
                 variables: {
                     workerAddress: node.ewxConfig.workerAddress,
-                    solutionNamespace: node.ewxConfig.solutionNamespace
+                    solutionNamespace: node.ewxConfig.solutionNamespace,
+                    votingRoundId: msg.payload.votingRoundId,
                 }
             };
 
@@ -27,9 +46,9 @@ module.exports = function (RED) {
 
             axios.post(url, requestPayload)
                 .then((response) => {
-                    const {nominatedWorkerNodes} = response.data.data;
+                    const {votingRoundNominatedWorkersSnapshots} = response.data.data;
 
-                    if (nominatedWorkerNodes.length > 0) {
+                    if (votingRoundNominatedWorkersSnapshots.length > 0) {
                         this.status({fill: "green", shape: "dot", text: "nominated"});
                         this.log(`workerAddress = ${node.ewxConfig.workerAddress} - worker is nominated`);
 
