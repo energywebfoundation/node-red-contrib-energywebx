@@ -32,7 +32,7 @@ module.exports = function (RED) {
         this.solutionGroupId = ewxRemoteConfig.EWX_SOLUTION_GROUP_ID;
         this.rpcUrl = ewxRemoteConfig.EWX_RPC_URL;
 
-        axios.get(process.env.BASE_URLS).then((response) => {
+        axios.get(config.__envConfig.BASE_URL).then((response) => {
             if (response.status !== 200) {
                 this.log('failed to obtain base urls');
                 this.status({fill: "red", shape: "dot", text: "missing __envConfig"});
