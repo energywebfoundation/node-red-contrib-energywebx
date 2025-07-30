@@ -42,6 +42,8 @@ module.exports = function (RED) {
 
             this.baseUrls = BASE_URLS_SCHEMA.parse(response.data);
 
+            this.subsquidUrl = response.data.indexer_url;
+
             this.log(`worker address = ${this.workerAddress}, solution namespace = ${this.solutionNamespace}, solution group id = ${this.solutionGroupId}, rpc url = ${this.rpcUrl}`)
 
             const provider = new polkadot.HttpProvider(this.rpcUrl);
