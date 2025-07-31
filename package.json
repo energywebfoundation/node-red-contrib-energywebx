@@ -11,6 +11,7 @@
       "submit-solution": "./submit-solution.js",
       "energywebx-config": "./energywebx-config.js",
       "is-nominated": "./is-nominated.js",
+      "is-nominated-v2": "./is-nominated-v2.js",
       "consensus": "./consensus.js"
     }
   },

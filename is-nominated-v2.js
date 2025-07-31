@@ -9,23 +9,46 @@ module.exports = function (RED) {
         var node = this;
 
         node.on('input', function (msg, send, done) {
+           if(!msg.payload.votingRoundId) {
+               console.error(`no voting round specified for solution = ${node.ewxConfig.solutionNamespace}`);
+
+               this.status({fill: "red", shape: "ring", text: "no voting round specified"});
+
+               send({
+                   payload: {
+                       isNominated: null,
+                   }
+               });
+
+               return;
+           }
+
             const requestPayload = {
-                query: `query IsWorkerNominated($workerAddress: String!, $solutionNamespace: String!) {
-                      nominatedWorkersMappings(where:{ worker: {id_eq: $workerAddress}, solution:{ id_eq: $solutionNamespace}}) {
+                query: `
+                    query IsWorkerNominated($workerAddress: String!, $solutionNamespace: String!, $votingRoundId: String!) {
+                      votingRoundNominatedWorkersSnapshots(where: {worker: {id_eq: $workerAddress}, votingRound:{votingRoundId_eq: $votingRoundId, solution: {id_eq: $solutionNamespace}}}) {
                         id
+                        votingRound {
+                          id
+                        }
                       }
-                    }`,
+                    }
+                    
+                    `,
                 variables: {
                     workerAddress: node.ewxConfig.workerAddress,
-                    solutionNamespace: node.ewxConfig.solutionNamespace
+                    solutionNamespace: node.ewxConfig.solutionNamespace,
+                    votingRoundId: msg.payload.votingRoundId,
                 }
             };
 
-            axios.post(node.ewxConfig.subsquidUrl, requestPayload)
-                .then((response) => {
-                    const {nominatedWorkersMappings} = response.data.data;
+            const url = node.ewxConfig.baseUrls.base_indexer_url + '/votes/graphql';
 
-                    if (nominatedWorkersMappings.length > 0) {
+            axios.post(url, requestPayload)
+                .then((response) => {
+                    const {votingRoundNominatedWorkersSnapshots} = response.data.data;
+
+                    if (votingRoundNominatedWorkersSnapshots.length > 0) {
                         this.status({fill: "green", shape: "dot", text: "nominated"});
                         this.log(`workerAddress = ${node.ewxConfig.workerAddress} - worker is nominated`);
 
@@ -59,5 +82,5 @@ module.exports = function (RED) {
         });
     }
 
-    RED.nodes.registerType("is-nominated", NodeConstructor);
+    RED.nodes.registerType("is-nominated-v2", NodeConstructor);
 }
