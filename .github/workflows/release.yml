@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - beta
   workflow_dispatch:
     inputs:
       action:
@@ -11,6 +12,7 @@ on:
         description: Select action to excute
         options:
         - Release
+        - Beta Release
         - Dry-run
         default: Dry-run
 
@@ -44,7 +46,9 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           custom_release_rules: major:major:Major Changes,minor:minor:Minor Changes,chore:patch:Chores
-          dry_run: ${{ github.event.inputs.action != 'Release' }}
+          dry_run: ${{ github.event.inputs.action != 'Release' && github.event.inputs.action != 'Beta Release' }}
+          pre_release_branches: beta
+          append_to_pre_release_tag: beta
     outputs:
       new_version: ${{ steps.tag_version.outputs.new_version }}
 
@@ -78,6 +82,8 @@ jobs:
         run: |
           if [[ "${{ github.event.inputs.action }}" == 'Release' ]]; then
             npm publish --access public 
+          elif [[ "${{ github.event.inputs.action }}" == 'Beta Release' ]] || [[ "${{ github.ref }}" == 'refs/heads/beta' ]]; then
+            npm publish --access public --tag beta
           else
             npm publish --access public --dry-run
           fi
