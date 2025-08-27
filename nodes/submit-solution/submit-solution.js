@@ -1,3 +1,4 @@
+const EWXNRLogger = require("../../lib/log");
 module.exports = function(RED) {
     const rp = require('request-promise');
 
@@ -5,11 +6,28 @@ module.exports = function(RED) {
         RED.nodes.createNode(this, config);
         var node = this;
 
+        const logger = new EWXNRLogger('SubmitSolutionResult', {}, node, true);
+
         node.on('input', function (msg, send, done) {
 
-            if (!msg.payload.result || !msg.payload.votingRoundID) node.error("Message payload is invalid");
-            else if (msg.payload.result.length > 64 || typeof msg.payload.result !== 'string') node.error("Invalid result");
-            else if (msg.payload.votingRoundID.length > 32 || typeof msg.payload.votingRoundID !== 'string') node.error("Invalid votingRoundID");
+            if (!msg.payload.result || !msg.payload.votingRoundID) {
+                node.error("invalid payload");
+                logger.error("invalid payload");
+
+                return;
+            }
+            else if (msg.payload.result.length > 64 || typeof msg.payload.result !== 'string') {
+                node.error("invalid result");
+                logger.error("invalid result");
+
+                return;
+            }
+            else if (msg.payload.votingRoundID.length > 64 || typeof msg.payload.votingRoundID !== 'string') {
+                node.error("invalid votingRoundID");
+                logger.error("invalid votingRoundID");
+
+                return;
+            }
 
             const requestPayload = {
                 noderedId: config.z,
@@ -17,7 +35,7 @@ module.exports = function(RED) {
                 id: msg.payload.votingRoundID,
             };
 
-            console.log(requestPayload);
+            logger.info("submitting result", requestPayload);
 
             const opts = {
                 method: 'POST',
@@ -30,7 +48,8 @@ module.exports = function(RED) {
             };
 
             rp(opts).then((result) => {
-                console.log("result submitted:", result);
+                logger.info("result submitted", result);
+
                 send({
                     payload: {
                         ... requestPayload,
@@ -40,7 +59,9 @@ module.exports = function(RED) {
 
                 done();
             }).catch((err) => {
-                console.error("error while submitting result:", err);
+                logger.error("failed to submit result");
+                logger.error(err);
+
                 send({
                     payload: {
                         ... requestPayload,

@@ -8,11 +8,14 @@
   "description": "Turn your flows to become SmartFlows in-order to be able to have your node-red flows being installed and executed on thousands of decentralised worker nodes around the world (Powered by Energy Web X)",
   "node-red": {
     "nodes": {
-      "submit-solution": "./submit-solution.js",
-      "energywebx-config": "./energywebx-config.js",
-      "is-nominated": "./is-nominated.js",
-      "is-nominated-v2": "./is-nominated-v2.js",
-      "consensus": "./consensus.js"
+      "submit-solution": "./nodes/submit-solution/submit-solution.js",
+      "energywebx-config": "./nodes/energywebx-config/energywebx-config.js",
+      "is-nominated": "./nodes/is-nominated/is-nominated.js",
+      "is-nominated-v2": "./nodes/is-nominated-v2/is-nominated-v2.js",
+      "fetch-ewx-config": "./nodes/fetch-ewx-config/fetch-ewx-config.js",
+      "merkle-tree-root-hash": "./nodes/merkle-tree-root-hash/merkle-tree-root-hash.js",
+      "voting-round-orchestrator": "./nodes/voting-round-orchestrator/voting-round-orchestrator.js",
+      "consensus": "./nodes/consensus/consensus.js"
     }
   },
   "scripts": {},
@@ -32,7 +35,9 @@
   "author": "EnergyWebX",
   "license": "ISC",
   "dependencies": {
+    "merkletreejs": "^0.5.2",
     "node-red": "^3.1.9",
+    "puppeteer": "^24.16.1",
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
     "zod": "^4.0.2"
