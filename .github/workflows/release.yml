@@ -15,6 +15,11 @@ on:
         - Beta Release
         - Dry-run
         default: Dry-run
+      branch:
+        type: string
+        description: Branch to release from
+        required: false
+        default: ''
 
 env:
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -39,6 +44,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+          ref: ${{ github.event.inputs.branch || github.ref }}
 
       - name: Bump version and push tag
         id: tag_version
@@ -63,6 +69,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch || github.ref }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
