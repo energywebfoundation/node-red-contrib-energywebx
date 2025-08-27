@@ -8,7 +8,11 @@ module.exports = function (RED) {
 
         var node = this;
 
-        node.on('input', function (msg, send, done) {
+        node.ewxConfig = RED.nodes.getNode(config.ewxConfig);
+
+        node.on('input', async function (msg, send, done) {
+            await node.ewxConfig.ready;
+
             const requestPayload = {
                 query: `query IsWorkerNominated($workerAddress: String!, $solutionNamespace: String!) {
                       nominatedWorkersMappings(where:{ worker: {id_eq: $workerAddress}, solution:{ id_eq: $solutionNamespace}}) {
