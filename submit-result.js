@@ -1,5 +1,5 @@
 "use strict";
-module.exports = function(RED) {
+module.exports = function (RED) {
     const rp = require('request-promise');
 
     function SubmitResult(n) {
@@ -31,7 +31,7 @@ module.exports = function(RED) {
                 console.log("result submitted:", result);
                 send({
                     payload: {
-                        ... requestPayload,
+                        ...requestPayload,
                         success: true,
                     }
                 });
@@ -41,7 +41,7 @@ module.exports = function(RED) {
                 console.error("error while submitting result:", err);
                 send({
                     payload: {
-                        ... requestPayload,
+                        ...requestPayload,
                         success: false,
                     }
                 });
@@ -50,7 +50,7 @@ module.exports = function(RED) {
             });
         });
 
-        node.on("close", function() {
+        node.on("close", function () {
             node.status({ fill: "gray", shape: "dot", text: "closing" });
         });
     };
